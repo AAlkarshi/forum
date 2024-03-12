@@ -4,11 +4,12 @@ namespace Model\Entities;
 use App\Entity;
 
 final class Topic extends Entity{
-
-    private $id_topic;
+    private $id;
     private $title;
-    //private $user;
-    //private $category;
+
+    private $user;
+    private $category;
+
     private $creationDate;
     private $verrouillage;
    // private $closed;
@@ -17,25 +18,9 @@ final class Topic extends Entity{
         $this->hydrate($data);        
     }
 
-    //hydrate() permet d'initialiser les propriétés avec un tableau associatif Clé Valeur.
-    private function hydrate($data) {
-        if (isset($data['id_topic'])) {
-            $this->setId($data['id_topic']);
-        }
-        if (isset($data['title'])) {
-            $this->settitle($data['title']);
-        }
-        if (isset($data['creationDate'])) {
-            $this->setcreationdate($data['creationDate']);
-        }
-        if (isset($data['verrouillage'])) {
-            $this->setverrouillage($data['verrouillage']);
-        }
-    }
-
-
+   //ID
     public function getId(){
-        return $this->id_topic;
+        return $this->id;
     }
 
     /**
@@ -43,8 +28,8 @@ final class Topic extends Entity{
      *
      * @return  self
      */ 
-    public function setId($id_topic){
-        $this->id_topic = $id_topic;
+    public function setId($id){
+        $this->id = $id;
         return $this;
     }
 
@@ -52,7 +37,7 @@ final class Topic extends Entity{
 
 
 
-//TITLE get
+//TITLE
     public function getTitle(){
         return $this->title;
     }
@@ -68,8 +53,46 @@ final class Topic extends Entity{
     }
 
 
-//CREATIONDATE get
-     public function getCreationDate(){
+    
+//USER
+public function getUser(){
+    return $this->user;
+}
+
+/**
+ * Set the value of title
+ *
+ * @return  self
+ */ 
+public function setUser($user){
+    $this->user = $user;
+    return $this;
+}
+
+
+
+
+//CATEGORY 
+public function getcategory(){
+    return $this->category;
+}
+
+/**
+ * Set the value of category
+ *
+ * @return  self
+ */ 
+public function setcategory($category){
+    $this->category = $category;
+    return $this;
+}
+
+
+
+
+
+//CREATIONDATE 
+     public function getcreationDate(){
         return $this->creationDate;
     }
 
@@ -78,7 +101,7 @@ final class Topic extends Entity{
      *
      * @return  self
      */ 
-    public function setCreationDate($creationDate){
+    public function setcreationDate($creationDate){
         $this->creationDate = $creationDate;
         return $this;
     }
@@ -101,36 +124,6 @@ final class Topic extends Entity{
         return $this;
     }
 
-
-
-
-   /*
-        public function getUser(){
-            return $this->user;
-        }
-
-        /**
-         * Set the value of user
-         
-        * @return  self
-     
-        public function setUser($user){
-            $this->user = $user;
-            return $this;
-        }
-*/
-
-
-
-
-
-
-
-
-
-
-
-    
 
     public function __toString(){
         return $this->title;

@@ -4,7 +4,7 @@ namespace Model\Entities;
 use App\Entity;
 
 final class Post extends Entity {
-    private $ID_Post;
+    private $id;
     private $text;
     private $creationDate;
 
@@ -12,26 +12,15 @@ final class Post extends Entity {
         $this->hydrate($data);        
     }
 
-   //hydrate() permet d'initialiser les propriétés avec un tableau associatif Clé Valeur.
-    private function hydrate($data) {
-        if (isset($data['id_Post'])) {
-            $this->setIDPost($data['id_Post']);
-        }
-        if (isset($data['text'])) {
-            $this->setText($data['text']);
-        }
-        if (isset($data['creationDate'])) {
-            $this->setCreationDate($data['creationDate']);
-        }
-    }
+  
 
 // ID
     public function getId() {
-        return $this->id_Post;
+        return $this->id;
     }
 
-    public function setId($ID_Post) {
-        $this->id_Post = $ID_Post;
+    public function setId($id) {
+        $this->id = $id;
         return $this;
     }
 

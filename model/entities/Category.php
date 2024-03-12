@@ -4,28 +4,20 @@ namespace Model\Entities;
 use App\Entity;
 
 final class Category extends Entity{
-    private $id_category;
-    private $name_category;
+    private $id;
+    private $nameCategory;
 
     public function __construct($data){         
         $this->hydrate($data);        
     }
 
-    //hydrate() permet d'initialiser les propriétés avec un tableau associatif Clé Valeur.
-     private function hydrate($data) {
-        if (isset($data['id_category'])) {
-            $this->setId($data['id_category']);
-        }
-        if (isset($data['name_category'])) {
-            $this->setname_category($data['name_category']);
-        }
-    }
+    
     
 
 //ID
     public function getId()
     {
-        return $this->id_category;
+        return $this->id;
     }
 
     /**
@@ -33,9 +25,9 @@ final class Category extends Entity{
      *
      * @return  self
      */ 
-    public function setId($id_category)
+    public function setId($id)
     {
-        $this->id_category = $id_category;
+        $this->id = $id;
         return $this;
     }
 
@@ -44,8 +36,8 @@ final class Category extends Entity{
     
 
 //CATEGORIES
-    public function getname_category(){
-        return $this->name_category;
+    public function getnameCategory(){
+        return $this->nameCategory;
     }
 
     /**
@@ -53,14 +45,14 @@ final class Category extends Entity{
      *
      * @return  self
      */ 
-    public function setname_category($name_category){
-        $this->name_category = $name_category;
+    public function setnameCategory($nameCategory){
+        $this->nameCategory = $nameCategory;
         return $this;
     }
 
 
 
     public function __toString(){
-        return $this->name_category;
+        return $this->nameCategory;
     }
 }
