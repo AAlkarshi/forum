@@ -3,16 +3,17 @@ namespace Model\Entities;
 
 use App\Entity;
 
+//CLASS FINAL permet que la classe ne peux pas être étendue
 final class Post extends Entity {
     private $id;
     private $text;
     private $creationDate;
+    private $idTopic;
+    private $idUser;
 
     public function __construct($data) {         
         $this->hydrate($data);        
     }
-
-  
 
 // ID
     public function getId() {
@@ -35,12 +36,38 @@ final class Post extends Entity {
     }
 
 // CREATIONDATE
-    public function getCreationDate() {
+    public function getcreationDate() {
         return $this->creationDate;
     }
 
-    public function setCreationDate($creationDate) {
+    public function setcreationDate($creationDate) {
         $this->creationDate = $creationDate;
         return $this;
     }
+
+
+// ID_TOPIC
+    public function getidTopic() {
+        return $this->id_Topic;
+    }
+
+    public function setidTopic($idTopic) {
+        $this->id_Topic = $idTopic;
+        return $this;
+    }
+
+// ID_USER
+    public function getidUser() {
+        return $this->idUser;
+    }
+
+    public function setidUser($idUser) {
+        $this->idUser = $idUser;
+        return $this;
+    }
+
+
+
+
+
 }

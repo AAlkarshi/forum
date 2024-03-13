@@ -3,6 +3,7 @@ namespace Model\Entities;
 
 use App\Entity;
 
+//CLASS FINAL permet que la classe ne peux pas être étendue
 final class Category extends Entity{
     private $id;
     private $nameCategory;
@@ -11,8 +12,6 @@ final class Category extends Entity{
         $this->hydrate($data);        
     }
 
-    
-    
 
 //ID
     public function getId()
@@ -22,7 +21,6 @@ final class Category extends Entity{
 
     /**
      * Set the value of id
-     *
      * @return  self
      */ 
     public function setId($id)
@@ -31,10 +29,6 @@ final class Category extends Entity{
         return $this;
     }
 
-    
-
-    
-
 //CATEGORIES
     public function getnameCategory(){
         return $this->nameCategory;
@@ -42,7 +36,6 @@ final class Category extends Entity{
 
     /**
      * Set the value of CATEGORIE
-     *
      * @return  self
      */ 
     public function setnameCategory($nameCategory){

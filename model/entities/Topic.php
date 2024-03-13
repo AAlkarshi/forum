@@ -3,29 +3,26 @@ namespace Model\Entities;
 
 use App\Entity;
 
+//CLASS FINAL permet que la classe ne peux pas être étendue
 final class Topic extends Entity{
     private $id;
     private $title;
-
     private $user;
     private $category;
-
     private $creationDate;
     private $verrouillage;
-   // private $closed;
 
     public function __construct($data){         
         $this->hydrate($data);        
     }
 
-   //ID
+//ID
     public function getId(){
         return $this->id;
     }
 
     /**
      * Set the value of ID
-     *
      * @return  self
      */ 
     public function setId($id){
@@ -33,25 +30,19 @@ final class Topic extends Entity{
         return $this;
     }
 
-    
-
-
-
 //TITLE
     public function getTitle(){
         return $this->title;
     }
 
     /**
-     * Set the value of title
-     *
+     * Set the value of TITLE
      * @return  self
      */ 
     public function setTitle($title){
         $this->title = $title;
         return $this;
     }
-
 
     
 //USER
@@ -60,7 +51,7 @@ public function getUser(){
 }
 
 /**
- * Set the value of title
+ * Set the value of USER
  *
  * @return  self
  */ 
@@ -69,26 +60,20 @@ public function setUser($user){
     return $this;
 }
 
-
-
-
 //CATEGORY 
-public function getcategory(){
+public function getCategory(){
     return $this->category;
 }
 
 /**
- * Set the value of category
+ * Set the value of CATEGORY
  *
  * @return  self
  */ 
-public function setcategory($category){
+public function setCategory($category){
     $this->category = $category;
     return $this;
 }
-
-
-
 
 
 //CREATIONDATE 
@@ -97,7 +82,7 @@ public function setcategory($category){
     }
 
     /**
-     * Set the value of title
+     * Set the value of CREATIONDATE
      *
      * @return  self
      */ 
@@ -107,19 +92,17 @@ public function setcategory($category){
     }
 
 
-
-
 //VERROUILLAGE get
-     public function getverrouillage(){
+     public function getVerrouillage(){
         return $this->verrouillage;
     }
 
     /**
-     * Set the value of title
+     * Set the value of VERROUILLAGE
      *
      * @return  self
      */ 
-    public function setverrouillage($verrouillage){
+    public function setVerrouillage($verrouillage){
         $this->verrouillage = $verrouillage;
         return $this;
     }

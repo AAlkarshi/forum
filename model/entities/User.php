@@ -3,6 +3,7 @@ namespace Model\Entities;
 
 use App\Entity;
 
+//CLASS FINAL permet que la classe ne peux pas être étendue
 final class User extends Entity {
     private $id; 
     private $nickname;
@@ -15,8 +16,6 @@ final class User extends Entity {
     }
 
    
-
-
 //ID
     public function getId(){
         return $this->id;
@@ -24,7 +23,6 @@ final class User extends Entity {
 
     /**
      * Set the value of id
-     *
      * @return  self
      */ 
     public function setId($id){
@@ -33,84 +31,67 @@ final class User extends Entity {
     }
 
 
-
-
 //NICKNAME
-    public function getNickName(){
-        return $this->nickName;
+    public function getNickname(){
+        return $this->nickname;
     }
 
     /**
      * Set the value of nickName
-     *
      * @return  self
      */ 
-    public function setNickName($nickName){
-        $this->nickName = $nickName;
+    public function setNickname($nickname){
+        $this->nickname = $nickname;
         return $this;
     }
 
 
-
-
-
-
 //EMAIL
-    public function getemail(){
+    public function getEmail(){
         return $this->email;
     }
 
     /**
      * Set the value of EMAIL
-     *
      * @return  self
      */ 
-    public function setemail($email){
+    public function setEmail($email){
         $this->email = $email;
         return $this;
     }
 
 
-
-//PASSWORD
-    public function getpassword(){
+    //PASSWORD
+    public function getPassword(){
         return $this->password;
     }
 
     /**
      * Set the value of password
-     *
      * @return  self
      */ 
-    public function setpassword($password){
+    public function setPassword($password){
         $this->password = $password;
         return $this;
     }
 
 
-
-
-
 //ROLE
-    public function getrole(){
+    public function getRole(){
         return $this->role;
     }
 
     /**
      * Set the value of ROLE
-     *
      * @return  self
      */ 
-    public function setrole($role){
+    public function setRole($role){
         $this->role = $role;
         return $this;
     }
 
 
-
-
-
     public function __toString() {
-        return $this->nickName;
+        return $this->nickname;
     }
 }
