@@ -8,8 +8,8 @@ final class Post extends Entity {
     private $id;
     private $text;
     private $creationDate;
-    private $idTopic;
-    private $idUser;
+    private $topic;
+    private $user;
 
     public function __construct($data) {         
         $this->hydrate($data);        
@@ -47,22 +47,22 @@ final class Post extends Entity {
 
 
 // ID_TOPIC
-    public function getidTopic() {
-        return $this->id_Topic;
+    public function gettopic() {
+        return $this->topic;
     }
 
-    public function setidTopic($idTopic) {
-        $this->id_Topic = $idTopic;
+    public function settopic($topic) {
+        $this->topic = $topic;
         return $this;
     }
 
 // ID_USER
-    public function getidUser() {
-        return $this->idUser;
+    public function getuser() {
+        return $this->user;
     }
 
-    public function setidUser($idUser) {
-        $this->idUser = $idUser;
+    public function setuser($user) {
+        $this->user = $user;
         return $this;
     }
 

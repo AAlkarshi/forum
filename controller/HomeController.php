@@ -5,7 +5,6 @@ use App\AbstractController;
 use App\ControllerInterface;
 use Model\Managers\UserManager;
 
-
 use App\Session;
 use Model\Managers\TopicManager;
 use Model\Managers\PostManager;
