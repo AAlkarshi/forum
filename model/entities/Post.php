@@ -47,27 +47,29 @@ final class Post extends Entity {
 
 
 // ID_TOPIC
-    public function gettopic() {
+    public function getTopic() {
         return $this->topic;
     }
 
-    public function settopic($topic) {
+    public function setTopic($topic) {
         $this->topic = $topic;
         return $this;
     }
 
 // ID_USER
-    public function getuser() {
+    public function getUser() {
         return $this->user;
     }
 
-    public function setuser($user) {
+    public function setUser($user) {
         $this->user = $user;
         return $this;
     }
 
 
 
-
+  public function __toString(){
+        return $this->text;
+    }
 
 }

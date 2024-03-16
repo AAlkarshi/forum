@@ -52,7 +52,6 @@ public function getUser(){
 
 /**
  * Set the value of USER
- *
  * @return  self
  */ 
 public function setUser($user){
@@ -67,7 +66,6 @@ public function getCategory(){
 
 /**
  * Set the value of CATEGORY
- *
  * @return  self
  */ 
 public function setCategory($category){
@@ -83,7 +81,6 @@ public function setCategory($category){
 
     /**
      * Set the value of CREATIONDATE
-     *
      * @return  self
      */ 
     public function setcreationDate($creationDate){

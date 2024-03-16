@@ -3,7 +3,6 @@ namespace Model\Managers;
 
 use App\Manager;
 use App\DAO;
-
 use Model\Managers\CategoryManager;
 
 class CategoryManager extends Manager{
@@ -16,20 +15,12 @@ class CategoryManager extends Manager{
         parent::connect();
     }
 
-    
-
     // récupérer tous les topics d'une catégorie spécifique (par son id)
     public function listCategory($id) {
         foreach ($requete as $Category) 
             $sql = "SELECT * FROM ".$this->tableName." WHERE c.category.id = :id";
             
            	
-
-
-            	
-
-      
-       
         // la requête renvoie plusieurs enregistrements --> getMultipleResults
         return  $this->getMultipleResults(
             DAO::select($sql, ['id' => $id]), 

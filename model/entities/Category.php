@@ -6,12 +6,11 @@ use App\Entity;
 //CLASS FINAL permet que la classe ne peux pas être étendue
 final class Category extends Entity{
     private $id;
-    private $nameCategory;
+    private $NameCategory;
 
     public function __construct($data){         
         $this->hydrate($data);        
     }
-
 
 //ID
     public function getId()
@@ -30,21 +29,21 @@ final class Category extends Entity{
     }
 
 //CATEGORIES
-    public function getnameCategory(){
-        return $this->nameCategory;
+    public function getNameCategory(){
+        return $this->NameCategory;
     }
 
     /**
      * Set the value of CATEGORIE
      * @return  self
      */ 
-    public function setnameCategory($nameCategory){
-        $this->nameCategory = $nameCategory;
+    public function setNameCategory($NameCategory){
+        $this->NameCategory = $NameCategory;
         return $this;
     }
 
 
     public function __toString(){
-        return $this->nameCategory;
+        return $this->NameCategory;
     }
 }

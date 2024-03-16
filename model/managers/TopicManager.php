@@ -3,33 +3,33 @@ namespace Model\Managers;
 
 use App\Manager;
 use App\DAO;
+use Model\Managers\TopicManager;
 
-class TopicManager extends Manager{
-
-    // on indique la classe POO et la table correspondante en BDD pour le manager concerné
+class TopicManager extends Manager {
     protected $className = "Model\Entities\Topic";
     protected $tableName = "topic";
 
-    public function __construct(){
+    public function __construct() {
         parent::connect();
     }
 
-    // récupérer tous les topics d'une catégorie spécifique (par son id)
-    public function findTopicsByCategory($id) {
+    public function listTopicsByCategory($id) {
+    $sql = "SELECT * FROM topic
+        INNER JOIN category ON topic.Category_ID = category.ID_Category
+        WHERE topic.Category_ID = :id";
 
-        $sql = "SELECT * 
-                FROM ".$this->tableName." t 
-                WHERE t.category_id = :id";
-       
+
         // la requête renvoie plusieurs enregistrements --> getMultipleResults
-        return  $this->getMultipleResults(
-            DAO::select($sql, ['id' => $id]), 
+        return $this->getMultipleResults(
+            DAO::select($sql, ['id' => $id]),
             $this->className
         );
+         
     }
 
     
-    
-   
-
 }
+
+?>
+
+

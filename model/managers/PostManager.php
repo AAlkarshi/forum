@@ -14,12 +14,13 @@ class PostManager extends Manager{
         parent::connect();
     }
 
-    // récupérer tous les topics d'une catégorie spécifique (par son id)
+    // récupérer Topics d'une catégorie par son id
     public function findPostsBytopic($id) {
-
-        $sql = "SELECT * 
-                FROM ".$this->tableName." p 
-                WHERE p.topic_id = :id";
+        
+        $sql = "SELECT post.text
+                FROM post
+                INNER JOIN topic ON post.topic_ID = topic.ID_topic
+                WHERE topic.Category_ID = :id";
        
         // la requête renvoie plusieurs enregistrements --> getMultipleResults
         return  $this->getMultipleResults(
