@@ -36,10 +36,8 @@ use App\Session;
 
         <!-- Confirmation MDP -->
         <div class="form-confirm">
-
             <label for="confirmPassword">Confirmer le Mot de passe</label>
             <input type="password" name="confirmPassword" id="confirmPassword">
-
         </div>
             
         <button type="submit">S'Inscrire</button>
@@ -49,7 +47,7 @@ use App\Session;
             1 lettres en Majuscule <br> 
             1  lettres en Minuscules <br> 
             1 Chiffre <br> 
-            1 Caracteres speciale & minimum 10 characters
+            1 Caracteres speciale & minimum 6 characters
             </small>
     </form>
 </div>
