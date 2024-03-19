@@ -94,4 +94,21 @@ final class User extends Entity {
     public function __toString() {
         return $this->nickname;
     }
+
+
+
+      /**
+        * @return  bool
+        */ 
+        public function hasRole($role) {
+            //Vérifie si le role est IDENTIQUE
+            if ($this->getRole() === $role) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+
 }

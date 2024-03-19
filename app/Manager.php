@@ -81,6 +81,7 @@ abstract class Manager{
         }
     }
     
+//Plusieurs Résultats
     protected function getMultipleResults($rows, $class){
 
         if(is_iterable($rows)){
@@ -89,6 +90,8 @@ abstract class Manager{
         else return null;
     }
 
+
+//1 ou 0 Résultat
     protected function getOneOrNullResult($row, $class){
 
         if($row != null){

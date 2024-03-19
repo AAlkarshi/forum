@@ -9,6 +9,7 @@ use App\Session;
     </div>
 
     <form id="form-content" action="index.php?ctrl=security&action=registerUser" method="post">
+     
         <!-- SURNOM ou dans BDD nickname -->
         <div class="form-username">
             <label for="nickname">Identifiant</label>

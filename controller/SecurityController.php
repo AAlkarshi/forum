@@ -57,56 +57,128 @@ class SecurityController extends AbstractController{
         $this->redirectTo("home", "index");
     }
 
-//Enregistrement USER
-    public function registerUser() {
+//Enregistrement USER  
+   public function registerUser() {
+   
+    $userManager = new UserManager;
 
-//FILTRE LES DONNES FORMULAIRES
-        $nickname = filter_input(INPUT_POST, "nickname", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL, FILTER_VALIDATE_EMAIL);
-        $confirmEmail = filter_input(INPUT_POST, "confirmEmail",FILTER_SANITIZE_FULL_SPECIAL_CHARS,FILTER_VALIDATE_EMAIL);
-        $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $confirmPassword = filter_input(INPUT_POST, "confirmPassword", FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+    // FILTRE LES DONNES FORMULAIRES
+    $nickname = filter_input(INPUT_POST, "nickname", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
+    $confirmEmail = filter_input(INPUT_POST, "confirmEmail", FILTER_SANITIZE_EMAIL);
+    $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $confirmPassword = filter_input(INPUT_POST, "confirmPassword", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $role = filter_input(INPUT_POST, "role", FILTER_SANITIZE_FULL_SPECIAL_CHARS);  
 
-//REGEX permet de verifier si tout les caracteres spéciaux sont fourni dans le champ MDP
-         $password_regex = "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{4,}$/";
+
+    // REGEX pour vérifier si tous les caractères spéciaux sont fournis dans le champ MDP
+    $password_regex = "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{4,}$/";
+
+    // preg_match pour faire une recherche sensible à la casse
+    preg_match($password_regex, $password);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Récupérer les données du formulaire
-        $nickname = $_POST['nickname'];
-        $email = $_POST['email'];
-        $confirmEmail = $_POST['confirmEmail'];
-        $password = $_POST['password'];
-        $confirmPassword = $_POST['confirmPassword'];
-
-        // Valider les données (exemple simple)
         if ($email !== $confirmEmail) {
-            echo "Email n'est pas identique !";
+            echo "Les adresses e-mail ne correspondent pas !";
             return;
         }
         if ($password !== $confirmPassword) {
-           echo "Le Mot de Passe n'est pas identique !";
+           echo "Les mots de passe ne correspondent pas !";
             return; 
         }
 
-        
-
-        // Hasher MDP
+        // Hasher le mot de passe
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        // Créer un nouvel utilisateur (vous devez ajouter une méthode pour cela dans UserManager)
-        $userManager = new UserManager();
-        $result = $userManager->createUser($nickname, $email, 
-            $hashedPassword);
+        // Créer un nouvel utilisateur
+        $role = 'Utilisateur';
+        $result = $userManager->createUser($nickname,$email,$hashedPassword ,$role);
 
         if ($result) {
             // Redirection ou message de succès
-            $this->redirectTo('security', 'login');
-            echo "Inscription à bien été Réaliser !";
+            $this->redirectTo("security", "login");
         } else {
-             $this->redirectTo('security', 'register');
+            echo "Une erreur est survenue lors de l'inscription.";
         }
     }
+
+      return [
+            "view" => VIEW_DIR."security/Login.php",
+            "meta_description" => "Connexion",
+            "data" => ["user" => $nickname]
+        ];
 }
+
+
+
+//CONNEXION UTILISATEUR
+
+ public function loginUser() {
+
+            $userManager = new UserManager;
+
+            $email = filter_input(INPUT_POST, "email",FILTER_VALIDATE_EMAIL);
+            $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            $er = false;
+
+
+            // verifie si EMAIL est vide
+            if(empty($email)) {               
+                $ErreurVerif = true;
+            }
+            
+            if(empty($password)) {
+                $ErreurVerif = true;
+            }
+
+            //check if the var are valid
+            if(!$email) {
+                $ErreurVerif = true;
+            }
+
+            if(!$password) {
+                $ErreurVerif = true;
+            }
+
+
+
+            
+            if(!$ErreurVerif) {
+                // Filtrer l'email de User afin de voir si il a deja un compte
+                $user = $userManager->findUser($email);
+
+                
+                if($user) {    
+                    $hashPassword = $user->getPassword();
+
+                    // si MDP HACHE est correct alors création Utilisateur
+                    if (password_verify($password, $hashPassword)) {
+                        Session::setUser($user);
+                        
+                        //Redirection 
+                        $this->redirectTo("home", "index");
+                    }
+                }
+            }
+            // Sinon redirection page connexion
+            $this->redirectTo("security", "login");
+            
+        }
+
+       
+
+        public function changePassword($formErrors = []) {
+
+            return [
+                "view" => VIEW_DIR."security/changePassword.php",
+                "data" => [
+                    "title" => "Change password",
+                    "formErrors" => $formErrors
+                ],
+                "meta" => "change the password of an account"
+            ];
+        }
 
 
 }

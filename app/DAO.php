@@ -50,6 +50,19 @@ abstract class DAO{
         }
     }
 
+
+    public static function getPDO() {
+    if (self::$bdd === null) {
+        self::connect();
+    }
+    return self::$bdd;
+}
+
+
+
+
+
+
     public static function update($sql, $params){
         try{
             $stmt = self::$bdd->prepare($sql);

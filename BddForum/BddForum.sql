@@ -36,7 +36,7 @@ INSERT INTO `category` (`ID_Category`, `nameCategory`) VALUES
 
 -- Listage de la structure de la table bddforum. post
 CREATE TABLE IF NOT EXISTS `post` (
-  `ID_post` int(11) NOT NULL,
+  `ID_post` int(11) NOT NULL AUTO_INCREMENT,
   `text` text,
   `creationDate` datetime DEFAULT NULL,
   `topic_ID` int(11) DEFAULT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   KEY `user_ID` (`user_ID`),
   CONSTRAINT `post_ibfk_1` FOREIGN KEY (`topic_ID`) REFERENCES `topic` (`ID_topic`),
   CONSTRAINT `post_ibfk_2` FOREIGN KEY (`user_ID`) REFERENCES `user` (`ID_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 -- Listage des données de la table bddforum.post : ~10 rows (environ)
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `topic` (
   CONSTRAINT `topic_ibfk_2` FOREIGN KEY (`user_ID`) REFERENCES `user` (`ID_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Listage des données de la table bddforum.topic : ~5 rows (environ)
+-- Listage des données de la table bddforum.topic : ~6 rows (environ)
 /*!40000 ALTER TABLE `topic` DISABLE KEYS */;
 INSERT INTO `topic` (`ID_topic`, `title`, `creationDate`, `verrouillage`, `Category_ID`, `user_ID`) VALUES
 	(1, 'Crypto', '2024-03-14 14:25:04', 2, 1, 1),
@@ -90,18 +90,23 @@ INSERT INTO `topic` (`ID_topic`, `title`, `creationDate`, `verrouillage`, `Categ
 
 -- Listage de la structure de la table bddforum. user
 CREATE TABLE IF NOT EXISTS `user` (
-  `ID_user` int(11) NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `nickname` varchar(50) DEFAULT NULL,
-  `role` varchar(50) DEFAULT NULL,
+  `ID_user` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `nickname` varchar(50) NOT NULL,
+  `role` varchar(50) NOT NULL,
   PRIMARY KEY (`ID_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Listage des données de la table bddforum.user : ~1 rows (environ)
+-- Listage des données de la table bddforum.user : ~5 rows (environ)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`ID_user`, `email`, `password`, `nickname`, `role`) VALUES
-	(1, 'a@gmail.com', 'Aaaaaaaaaa-67', 'MOI', 'Utilisateur');
+	(1, 'a@gmail.com', 'abdullrahman', 'MOI', 'Utilisateur'),
+	(2, 'alkarshi.abdullrahman@gmail.com', '$2y$10$l8nmwGPIRguw2XgDKtanNumzNxqb.MPMAnF352woQXfLUjZ2i0Q9O', 'exemple', 'Utilisateur'),
+	(3, 'a@gmail.com', '$2y$10$Mb/xxwq6lESuPS7RuPeiIeYTpD1igfMWewffxxe3i5ClgqX9m9Lze', 'PONEY', 'Utilisateur'),
+	(4, 'arnaud@gmail.com', '$2y$10$mfXSiTk1oH7AoiLOfTnVxuB0mMrxB9RXoaHQcuJ01VLINHE8R3l9e', 'arnaud', 'Utilisateur'),
+	(5, 'exemple@gmail.com', '$2y$10$P0BzG/7Po1BAJmPFS3MxdOcSSgx69d3rsmykuX/mgI0v9MTQkHUXq', 'exemple', 'Utilisateur'),
+	(6, 'a.alkarshi@gmail.com', '$2y$10$rWM0M9Rf.lIrx7L2ZOnjfuFzZvDIGX.yzgJsVGUEadzJfBnKrfDw.', 'Abdullrahman', 'Utilisateur');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
