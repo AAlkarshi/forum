@@ -17,10 +17,10 @@ class PostManager extends Manager{
     // récupérer Topics d'une catégorie par son id
     public function findPostsBytopic($id) {
         
-        $sql = "SELECT post.text
-                FROM post
-                INNER JOIN topic ON post.topic_ID = topic.ID_topic
-                WHERE topic.Category_ID = :id";
+        $sql = "SELECT * FROM post
+        INNER JOIN topic ON post.topic_ID = topic.ID_topic
+        WHERE topic.Category_ID = :id
+        ORDER BY post.creationDate DESC";
        
         // la requête renvoie plusieurs enregistrements --> getMultipleResults
         return  $this->getMultipleResults(
