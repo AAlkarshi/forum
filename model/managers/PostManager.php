@@ -28,4 +28,21 @@ class PostManager extends Manager{
             $this->className
         );
     }
+
+
+//Ajout des donnée d'un formulaire dans la BDD
+    public function add($data) {
+        $sql = "INSERT INTO post (text, creationDate, topic_ID, user_ID)
+        VALUES ( :text, :creationDate, :topic_ID, :user_ID)";
+
+        return DAO::insert($sql, [
+            'text' => $data['text'],
+            'creationDate' => $data['creationDate'],
+            'topic_ID' => $data['topic_ID'], 
+            'user_ID' => $data['user_ID']
+        ]);
+    }
+
+
+
 }

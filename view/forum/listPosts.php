@@ -5,15 +5,26 @@
 <h1>Liste des posts</h1>
 <?php
 // Boucle permettant d'afficher la liste des Posts par Topic selon la Catégorie
-foreach ($posts as $post) {
+foreach ($posts as $post) { 
+    
     $user = $post->getUser();
-    if (is_object($user)) {
-  		echo '<a href="index.php?ctrl=user&action=detailProfilUtilisateur&id='.$user->getId().'">';
-        $post->getUser()->getNickname(). '</a> ';
-    } else {
-        echo 'Utilisateur inconnu; ';
-    }
 
+   /* if (is_object($user)) { */
+
+    echo "Créer par : ";
+  		echo '<a href="index.php?ctrl=user&action=detailProfilUtilisateur&id='.$user->getId().'">';
+        
+       
+
+
+          echo $post->getUser()->getNickname()
+        
+        
+    
+        
+        . '</a> ';
+    
+//var_dump($post);
 
 
     // Affiche un lien vers les posts du topic et la date de création

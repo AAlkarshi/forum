@@ -10,92 +10,70 @@ use Model\Managers\PostManager;
 use Model\Managers\CategoryManager;
 use Model\Managers\UserManager;
 
- class TopicController extends AbstractController implements ControllerInterface{
+ class PostController extends AbstractController implements ControllerInterface{
 
      public function index() {
- 
-		$topicManager = new TopicManager();
+          
+		$postManager = new PostManager();
 
             return [
-                "view" => VIEW_DIR."topic/listTopics.php",
+                "view" => VIEW_DIR."post/listPosts.php",
                 "data" => [
-                    "title" => "List of topics",
-                    "topics" => $topicManager->findAll(["creationDate", "DESC"])
+                    "title" => "Listes des posts",
+                    "posts" => $postManager->findAll(["creationDate", "DESC"])
                 ],
-                "meta" => "Listes de chaque topics duforum"
+                "meta" => "Listes de chaque post du forum"
             ];
         
         }
         
 
-
-
-
-public function addTopic() {
+public function addPost() {
 		//Si USER est PAS CONNECTER il pourra pas accdéder à la page
             if(!Session::getUser()) { 
                 $this->redirectTo("home", "index");
             }
 
+            //INSTANCE 
             $topicManager = new TopicManager();
             $postManager = new PostManager();
             $dateRecente = new \DateTime("now");
 
             
-            //FILTRE donnée du form AJOUT TOPIC
-           $title = filter_input(INPUT_POST,"title",FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
+            //FILTRE donnée du form AJOUT POST
            $text = filter_input(INPUT_POST,"text", FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
            $categorie = filter_input(INPUT_POST, "categorie",FILTER_SANITIZE_NUMBER_INT); 
            
-            $topic = filter_input(INPUT_POST, "topic",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $PostManager = filter_input(INPUT_POST, "post",FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
             $idUser = $_SESSION["user"]->getId();
 
-            $idPost = $_SESSION["user"]->getId();
-
-
-
-        // CONCERNE LE TOPIC
-           $dataTopic = [
-                "title" => $title,
-                "creationDate" => $dateRecente->format("Y-m-d H:i:s"),
-                "ID_topic" => $topic, 
-                "Category_ID" => $categorie,
-                "user_ID" => $idUser
-            ];
-            
-            //CREER FONCTION add dans $topicManager
-            $TopicManager = $topicManager->add($dataTopic);
-
-            
-
-
-        // CONCERNE LE POST
-           $dataPost = [
+            $dataPost = [
                 "text" => $text,
                 "creationDate" => $dateRecente->format("Y-m-d H:i:s"),
-                "topic_ID" => $topic, 
-                "ID_post" => $idPost, 
+                "post_id" => $idPost, 
                 "ID_user" => $idUser
             ];
             
             //CREER FONCTION add dans $PostManager
-            $PostManager =  $postManager->add($dataPost);
+            $PostManager =  $PostManager->add($dataPost);
 
-            //Redirection vers Listes des topics
 
-            $this->redirectTo("forum", "listTopics", $idTopic);
+
+
+
+
+
+/* CREER AffichePost*/
+            $this->redirectTo("post", "AffichePost", $idTopic);
 
             return [
 			    "view" => VIEW_DIR."topic/addTopicForm.php",
 			    "data" => [
-			        "title" => "Ajout d'un topic",
+			        "title" => "Ajout d'un post",
 			        "categories" => $categories 
 			    ],
-			    "meta" => "Création d'un topic",
-			    "meta_description" => "Ajout d'un topic" 
-            ];
+			    "meta" => "Création d'un post",
+			    "meta_description" => "Ajout d'un post" 
+];
         }
 
 
@@ -104,7 +82,7 @@ public function addTopic() {
 
 //AJOUT TOPIC DEPUIS FORM
 
-public function addTopicForm() { 
+public function addPostForm() { 
     // Vérifie si un utilisateur est connecté
     if (!Session::getUser()) { 
         // Redirection USER NON CONNECTER
@@ -119,10 +97,10 @@ public function addTopicForm() {
     return [
         "view" => VIEW_DIR."topic/addTopicForm.php",
         "data" => [
-            "title" => "Création d'un topic",
+            "title" => "Création d'un post",
             "categories" => $categories 
         ],
-        "meta" => "Création du topic"
+        "meta" => "Création du post"
     ];
 }
 

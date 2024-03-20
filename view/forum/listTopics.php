@@ -1,6 +1,7 @@
 <?php
     $category = $result["data"]['category']; 
     $topics = $result["data"]['topics']; 
+    
 ?>
 
 <h1>Liste des topics</h1>
@@ -12,19 +13,12 @@
 // Boucle permettant d'afficher la liste des topics
 foreach ($topics as $topic) {
     $user = $topic->getUser();
-    if (is_object($user)) {
-        // Si getUser() retourne un objet, on affiche le lien vers le profil utilisateur
-        // et le nickname de l'utilisateur
-
-echo '<a href="index.php?ctrl=user&action=detailProfilUtilisateur&id='.$user->getId().'">'; 
-
-
-//ERREUR UTILISATEUR INCONNU A CORRIGER
-        echo $topic->getUser()->getTitle().  
-    '</a> ';
-    } else {
-        echo 'Utilisateur inconnu ';
-    }
+    echo "Créer par : ";
+        echo '<a href="index.php?ctrl=user&action=detailProfilUtilisateur&id='.$user->getId().'">'; 
+    
+    //ERREUR UTILISATEUR INCONNU A CORRIGER
+        echo $topic->getUser()->getNickname().      '</a> ';
+    
 
 
 

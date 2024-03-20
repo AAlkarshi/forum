@@ -32,7 +32,7 @@ class TopicManager extends Manager {
 
 
 
-
+//Ajout du topic     addTopic 
      public function addTopic($id) {
         $sql = "SELECT topic.* , user.nickname FROM topic
         INNER JOIN category ON topic.Category_ID = category.ID_Category
@@ -48,7 +48,8 @@ class TopicManager extends Manager {
          
     }
 
-    
+
+
 }
 
 ?>
