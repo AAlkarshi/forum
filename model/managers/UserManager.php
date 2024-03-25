@@ -38,7 +38,7 @@ public function createUser($nickname, $email, $hashedPassword) {
 }
 
 
-
+//Trouver l'USER grâce à son email
 public function findUser($email) {
             $sql =  "SELECT * FROM user WHERE email = :email";
 

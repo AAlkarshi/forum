@@ -1,29 +1,29 @@
 <?php 
 use App\Session;
 
-if(isset($result["data"]["formErrors"])) { 
+if(isset($result["security"]["error"])) { 
 
-    $formErrors = $result["data"]["formErrors"];
+    $formErrors = $result["security"]["error"];
 }
 
-$message = $result["data"]["message"];
+$Post = $result["data"]["post"];
 
 ?>
 
-<?php if($message) { ?>
+<?php if($Post) { ?>
 
     <div>
         <div>
             <h1>Mise à jour du POST</h1>
         </div>
 
-        <form action="index.php?ctrl=post&action=updatePost&id=<?= $message->getId() ?>" method="post">
+        <form action="index.php?ctrl=post&action=updatePost&id=<?= $Post->getId() ?>" method="post">
 
             
             <label for="text">Post</label>
 
             <textarea name="text" id="text" cols="60" rows="5">
-                <?= $message->getText() ?>
+                <?= $Post->getText() ?>
             </textarea>
             
 

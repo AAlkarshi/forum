@@ -12,9 +12,10 @@ final class Topic extends Entity{
     private $creationDate;
     private $verrouillage;
 
+
 //ATTRIBUT SUPPPLEMENTAIRE
 
-    //NBX de Topic
+    //NBX de Topic par USER
     private $nbxTopic;
 
     // ID du MSG de l'auteur lors de la création du topic
@@ -22,6 +23,12 @@ final class Topic extends Entity{
 
     //MSG de l'auteur lors de la créationdu post
     private $messageAuteur;
+
+    //NBX de POST par topics selon l'USER
+    private $nbxPostByTopics;
+
+    
+
 
 
     public function __construct($data){         
@@ -144,6 +151,7 @@ public function setnbxTopic($nbxTopic){
 
 
 
+
 //IDMESSAGESAUTEUR
 public function getidMessagesAuteur(){
     return $this->idMessagesAuteur;
@@ -172,7 +180,7 @@ public function getidMessagesAuteur(){
      * Set the value of id
      * @return  self
      */ 
-public function setmessageAuteur($messageAuthor){
+public function setmessageAuteur($messageAuteur){
     $this->messageAuteur = $messageAuteur;
     return $this;
 }
@@ -181,8 +189,37 @@ public function setmessageAuteur($messageAuthor){
 
 
 
+//NBX de POST par topics selon l'USER
+public function getnbxPostByTopics(){
+    return $this->nbxPostByTopics;
+}
+
+
+ /**
+     * Set the value of id
+     * @return  self
+     */ 
+public function setnbxPostByTopics($nbxPostByTopics){
+    $this->nbxPostByTopics = $nbxPostByTopics;
+    return $this;
+}
+
+
+
+
+
+
+
+
+
+ public function getFormattedDate($format = "Y-m-d H:i:s") {
+    return $this->creationDate->format($format);
+}
+
 
     public function __toString(){
         return $this->title;
     }
+
+   
 }

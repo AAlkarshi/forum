@@ -15,7 +15,7 @@
             $this->redirectTo("home", "index");
         }
 
-        public function profile() {
+        public function monprofil() {
             //si USER est PAS CONNECTER alors redirection
             if(!Session::getUser()) { 
                 $this->redirectTo("home", "index");
@@ -71,7 +71,20 @@
 
                 
 
-              
+        public function updateUser($idUser) {
+            $userManager = new UserManager;
+
+            if(!Session::isAuthorOrAdmin($idUser)) {
+                $this->redirectTo("home", "index");
+            }
+
+            $this->existInDatabase($idUser, $userManager);
+
+            $userManager->update($idUser);
+
+            $this->redirectTo("home", "users");
+
+        }
 
                 
 

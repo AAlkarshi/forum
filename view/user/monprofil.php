@@ -1,10 +1,46 @@
 <?php 
 use App\Session;
+use Model\Managers\TopicManager;
+
+
 
 $topics = $result["data"]["topics"];
+
+
+//$nbxtopic = $TopicManager->getnbxTopic(); 
 ?>
 
 <div>
+
+      <a href="index.php?ctrl=forum&action=index">Liste des Catégories</a>
+
+        <!-- redirige vers Listes Categories qui obligera USER à selectionner la CATEGORIE => TOPICS => POST -->
+        <a href="index.php?ctrl=forum&action=listTopics">Liste des Topics</a>
+
+        <!-- redirige vers Listes Categories qui obligera USER à selectionner la CATEGORIE => TOPICS => POST -->
+        <a href="index.php?ctrl=forum&action=listPosts">Liste des Posts</a>
+
+        <br>
+
+
+        <a href="index.php?ctrl=topic&action=addTopicForm">Créer un Topic </a> 
+
+        <a href="index.php?ctrl=user&action=monprofil&id=<?= ($_SESSION["user"]->getId()) ?>">Mon Profil</a>
+
+
+
+    <!--   
+        le ID en URL s'arrete à 5 sois le nbx de catéogire A CORRIGE
+    -->
+        <a href="index.php?ctrl=topic&action=updateTopicForm&id=
+            <?= ($_SESSION["user"]->getId()) ?>">  Modification du Topic 
+        </a>
+
+
+
+        <a href="index.php?ctrl=post&action=updatePost">Modification du Post </a>
+
+        <a href="index.php?ctrl=forum&action=AffichePost">Affichages des posts</a>
 
     <div>
         <h1>Profil</h1>
@@ -14,85 +50,68 @@ $topics = $result["data"]["topics"];
 
             <div>
 
-                <p>Identifiant</p>
+                <h2>Identifiant :</h2>                 
                 <p><?= $_SESSION["user"]->getNickname() ?></p>
-                
-                <p>Email</p>
+            <br>
+                <h2>Email</h2>
                 <p><?= $_SESSION["user"]->getEmail() ?></p>
  
-                
-                <!--
-                <a href="index.php?ctrl=user&action=updateUserInfo">
-                    <p>Change information</p>
+            <br>
+
+            <h3> Les topics : </h3>
+                <!-- 
+                <a href="index.php?ctrl=user&action=updateTopicForm">
+                    <p> Modifier les infos </p>
                 </a>
-                -->
+            -->
 
             </div>
 
-        
+    
 
         <table>
 
-            <thead>
+           
 
-                <tr>
-                    <th class="tableTitle">Topic poster</th>
-                    <th>Categorie</th>
-                    <th>Post</th>
-                    <th>Date</th>
-                </tr>
+          <?php if (isset($topics) && !empty($topics)) : ?>
+<tbody>
+    <?php foreach ($topics as $topic) : 
+         
+        
+        ?>
+        <tr>
+                <td>
+                    <a href="index.php?ctrl=post&action=AffichePost&id=<?= $topic->getId() ?>">
+                        <?= $topic->getTitle() ?>
+                    </a>
+                </td>
+                
+                <td><?= $topic->getCategory() ?></td>
+                <td><?= $topic->getnbxTopic() ?> messages</td> 
+                <td> <?= $topic->getnbxPostByTopics() ?> </td>
+                <td><?= $topic->getCreationDate() ?></td>
 
-            </thead>
-
-            <?php if(isset($topics)) { ?>
-
-                <tbody>
-
-                    <?php foreach($topics as $topic) { ?>
-
-                        
-                                <a href="index.php?ctrl=message&action=AffichePost&id=<?= $topic->getId() ?>">
-                                    <?= $topic->getTitle() ?>
-                                </a>
-                            
-                            
-                            
-                                <a href="index.php?ctrl=message&action=AffichePost&id=<?= $topic->getId() ?>">
-                                    <?= $topic->getCategory() ?>
-                                </a>
-                            
+              
+             
 
 
+        </tr>
+    <?php endforeach; ?>
+</tbody>
+<?php else : ?>
+<tr>
+    <td>Aucun topic n'a été posté.</td>
+</tr>
+<?php endif; ?>
 
-                            
-                                <?= $topic->getNbxMessages() ?>
-                                <span> messages</span>
-                            
-                            
-                            <?= $topic->getFormattedDate("Y-m-d") ?>
-                        
+</tbody>
 
-                    <?php } ?>
 
-                </tbody>
 
-            <?php } else { ?>
-
-                <tr>
-                    <td colspan="4">Aucun topic à été poster</td>
-                </tr>
-
-            <?php } ?>
 
         </table>
         
-        <form id="form-content-profile" action="index.php?ctrl=user&action=updateUser"  method="post">
-           <!--
-            <label for="picture">Upload a picture for your profile!</label>
-            <input type="hidden" name="MAX_FILE_SIZE" value="10000"/>
-            <input type="file" name="picture" id="picture">
-            
--->
+        <form action="index.php?ctrl=user&action=updateUser"  method="post">
             <button type="submit">Enregistrer</button>
         </form>
 

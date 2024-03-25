@@ -42,6 +42,12 @@ abstract class Manager{
         );
     }
 
+
+
+
+
+
+
     //$data = ['username' => 'Squalli', 'password' => 'dfsyfshfbzeifbqefbq', 'email' => 'sql@gmail.com'];
 
     public function add($data){
@@ -80,6 +86,13 @@ abstract class Manager{
             yield new $class($row);
         }
     }
+
+
+
+
+
+
+
     
 //Plusieurs Résultats
     protected function getMultipleResults($rows, $class){

@@ -1,6 +1,6 @@
 <?php
 
-use Service\ConvertDate;
+
 use App\Session;
 
 ?>
@@ -8,34 +8,49 @@ use App\Session;
 
 
 <!-- Si USER connecté alors ce lien s'affiche -->
-<?php if(isset($_SESSION["user"])) { ?>
+<?php if(isset($_SESSION["user"]))  { ?>
+    
+        <a href="index.php?ctrl=forum&action=index">Liste des Catégories</a>
 
-    <a href="index.php?ctrl=topic&action=addTopicForm">
-        Créer un Topic
-    </a> 
+        <!-- redirige vers Listes Categories qui obligera USER à selectionner la CATEGORIE => TOPICS => POST -->
+        <a href="index.php?ctrl=forum&action=listTopics">Liste des Topics</a>
 
-     <a href="index.php?ctrl=user&action=profile">
-        Mon Profil
-    </a>
+        <!-- redirige vers Listes Categories qui obligera USER à selectionner la CATEGORIE => TOPICS => POST -->
+        <a href="index.php?ctrl=forum&action=listPosts">Liste des Posts</a>
 
-
-    <a href="index.php?ctrl=topic&action=updateTopicForm">
-       Modification du Topic
-    </a>
+        <br>
 
 
-    <a href="index.php?ctrl=post&action=updatePost">
-       Modification du Post
-    </a>
+        <a href="index.php?ctrl=topic&action=addTopicForm">Créer un Topic </a> 
 
-      <a href="index.php?ctrl=forum&action=AffichePost">
-       Affichages des posts
-    </a>
 
+
+         <!--   
+        NBX DE POST PAR TOPIC ne veux pas s'afficher A CORRIGE
+        -->
+        <a href="index.php?ctrl=user&action=monprofil&id=<?= ($_SESSION["user"]->getId()) ?>">Mon Profil</a>
+
+        <!--   
+            le ID en URL s'arrete à 5 sois le nbx de catégorie A CORRIGE
+        -->
+        <a href="index.php?ctrl=topic&action=updateTopicForm&id=<?= ($_SESSION["user"]->getId()) ?>">Modification du topic</a>
+
+
+
+
+
+        <a href="index.php?ctrl=post&action=updatePost">Modification du Post </a>
+
+        <a href="index.php?ctrl=forum&action=AffichePost">Affichages des posts</a>
+            
 
 
 
 <?php } ?>
+
+
+
+
 
 
 

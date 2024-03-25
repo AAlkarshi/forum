@@ -32,12 +32,12 @@ class TopicManager extends Manager {
 
 
 public function updateTopicForm($idTopic) {
+    $sql = "SELECT * FROM topics WHERE user_id = :userId";
     $topicManager = new TopicManager;
     $topic = $topicManager->headerTopic($idTopic);
 
    
     if (!$topic) {
-       
         $this->redirectTo("security", "error");
         return; 
     }
@@ -79,7 +79,9 @@ public function updateTopicForm($idTopic) {
 
 
 
-//EN TETE DU TOPIC qui renvoi ID et texte,date,categorie du topic
+//EN TETE DU TOPIC qui renvoi de TOPIC sont ID,texte,dateCreation,verrouillage,
+//categorie,ID de l'USER
+//ID et texte du POST 
 public function headerTopic($id) {
             $sql = "SELECT 
                 topic.id_topic,topic.title,topic.creationDate,
@@ -90,7 +92,6 @@ public function headerTopic($id) {
                 INNER JOIN post ON topic.id_topic = post.topic_ID
                 WHERE topic.id_topic = :id
                 ORDER BY post.creationDate
-                LIMIT 1
             ";
 
             return $this->getOneOrNullResult(
@@ -103,16 +104,17 @@ public function headerTopic($id) {
 
 
 
+
+
 //Renvoi tout les topics créer par 1 utilisateur
  public function TopicsPoster($id) {
-
             $sql = 
             "SELECT topic.id_topic,topic.title,topic.creationDate,
             topic.verrouillage,topic.category_id, topic.user_id,
             COUNT(post.topic_ID) AS nbmessages            
             FROM topic
             INNER JOIN post ON topic.id_topic = post.topic_ID
-            WHERE topic.user_id = topic.user_id 
+            WHERE topic.user_id = :id 
             GROUP BY topic.id_topic
             ORDER BY topic.creationDate DESC";
 
@@ -121,6 +123,9 @@ public function headerTopic($id) {
                 $this->className
             );
         }
+
+
+
 
 
 // Renvoi les 5 topics les + RECENT
@@ -158,6 +163,51 @@ public function TopicsPopulaire() {
 
 
 
+//Nombre d'élément pat TOPIC par utilisateur
+public function nbxTopic() {
+     $sql = "SELECT topic.user_id, topic.title, 
+            COUNT(topic.id_topic) AS nbxTopic
+           FROM topic
+           INNER JOIN post ON topic.id_topic = post.topic_ID
+           WHERE topic.user_id = topic.user_id
+           GROUP BY topic.id_topic
+           ORDER BY topic.creationDate ASC";
+
+            return $this->getMultipleResults(
+                DAO::select($sql), 
+                $this->className
+            );
+        
+}
+
+
+//Nombre d'élément pat POST par utilisateur par TOPIC
+public function nbxPostByTopics() {
+    $sql = "SELECT topic.user_id , topic.title ,
+    COUNT(post.ID_post) AS nbxPostsByTopic
+          FROM post
+          INNER JOIN topic ON post.topic_ID = topic.id_topic
+          WHERE post.user_ID = :id
+          GROUP BY topic.id_topic
+          ORDER BY nbxPostsByTopic DESC";
+
+        return $this->getMultipleResults(
+            DAO::select($sql), 
+            $this->className);
+                
+       
+}
+
+
+
+
+
+
+
+
+
+
+
 // FERME LE SUJET TOPIC
 public function verrouillageTopic($id) {
             $sql = 
@@ -169,6 +219,18 @@ public function verrouillageTopic($id) {
                 $this->className
             );
         }
+
+
+
+//FONCTION PERMETTANT DE SAVOIR si IDtopic 
+protected function existInDatabase($idTopic , $topicManager) {
+    $topic = $topicManager->headerTopic($idTopic);
+        return $topic !== null;
+    }
+
+
+
+
 
 
 }

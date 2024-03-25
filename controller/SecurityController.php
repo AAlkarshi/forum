@@ -132,7 +132,7 @@ class SecurityController extends AbstractController{
                 $ErreurVerif = true;
             }
 
-            //check if the var are valid
+           
             if(!$email) {
                 $ErreurVerif = true;
             }

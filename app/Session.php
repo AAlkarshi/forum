@@ -49,11 +49,12 @@ class Session{
 
 
 //Vérifie su USER est ADMIN ou AUTEUR 
-    public static function isAuthorOrAdmin($idAuthor) {
+    public static function isAuthorOrAdmin($id) {
             if(self::getUser() && self::isAdmin()) {
                 return true;
 
-            } else if(self::getUser()->getId() == $idAuthor) {
+                // self represente la classe Elle-même et les rend accesibles sans instance de classe ou d'un objet
+            } else if(self::getUser()->getId() == $id) {
                 return true;
 
             } else {

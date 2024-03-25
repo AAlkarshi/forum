@@ -11,6 +11,9 @@ final class User extends Entity {
     private $password;
     private $role;
 
+
+    private $nbxPostByTopics;
+
     public function __construct($data) {         
         $this->hydrate($data);        
     }
@@ -94,6 +97,24 @@ final class User extends Entity {
     public function __toString() {
         return $this->nickname;
     }
+
+
+
+    //NBX de POST par topics selon l'USER
+    public function getnbxPostByTopics(){
+        return $this->nbxPostByTopics;
+    }
+
+
+ /**
+     * @return  self
+     */ 
+public function setnbxPostByTopics($nbxPostByTopics){
+    $this->nbxPostByTopics = $nbxPostByTopics;
+    return $this;
+}
+
+
 
 
 

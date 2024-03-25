@@ -8,33 +8,29 @@
 foreach ($posts as $post) { 
     
     $user = $post->getUser();
+  
 
    
 
     echo "Créer par : ";
   		echo '<a href="index.php?ctrl=user&action=detailProfilUtilisateur&id='.$user->getId().'">';
-        
-       
+            echo $post->getUser()->getNickname() . '</a> ';
+            
+                
 
+                echo $post->getText() ;
 
-          echo $post->getUser()->getNickname()
-        
-        
-    
-        
-        . '</a> ';
-    
-
-
-
+/*
     // Affiche un lien vers les posts du topic et la date de création
-    echo '<a href="index.php?ctrl=forum&action=listPostByTopic&id='.$post->getId() . '">';
-    echo $post->getText() . '</a> ';
+    echo '<a href="index.php?ctrl=forum&action=listPostByTopic&id='.$post->getId().'">';
+   // echo $post->getText() . 
+        '</a>';
+*/
 
     // Formatez la DATE DE CREATION avec HEURE
-    echo '<small>Créé le ' . 
+    echo '<small> Créé le '. 
                 date('Y-m-d H:i', strtotime($post->getCreationDate())) . 
         '</small>
-    <br>';
+    <br>'; 
 }
 ?>
