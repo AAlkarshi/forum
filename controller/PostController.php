@@ -28,7 +28,36 @@ use Model\Managers\UserManager;
         }
         
 
-public function addPost() {
+
+
+public function AffichePost($idTopic) {
+
+            $messageManager = new MessageManager();
+            $topicManager = new TopicManager();
+            
+            $this->existInDatabase($idTopic, $topicManager);
+
+            
+            $post = $messageManager->messagesResponse($idTopic); 
+            $topic = $topicManager->headerTopic($idTopic); 
+            $closed = $topicManager->closed($idTopic);
+
+            return [
+                "view" => VIEW_DIR."forum/AffichePost.php",
+                "data" => [
+                    "title" => "Details des Topics",
+                    "post" => $post, 
+                    "topic" => $topic,
+                    "Verrouillage" => $closed,
+                ], 
+                "meta" => "Listes des posts d'un topic".$topic->getTitle()
+            ];
+        }
+
+
+
+public function addPost($idTopic) {
+
 		//Si USER est PAS CONNECTER il pourra pas accdéder à la page
             if(!Session::getUser()) { 
                 $this->redirectTo("home", "index");
@@ -39,31 +68,43 @@ public function addPost() {
             $postManager = new PostManager();
             $dateRecente = new \DateTime("now");
 
+             $this->existInDatabase($idTopic, $topicManager);
             
-            //FILTRE donnée du form AJOUT POST
+           //FILTRE donnée du form AJOUT POST
            $text = filter_input(INPUT_POST,"text", FILTER_SANITIZE_FULL_SPECIAL_CHARS); 
-           $categorie = filter_input(INPUT_POST, "categorie",FILTER_SANITIZE_NUMBER_INT); 
+           
            
             $idUser = $_SESSION["user"]->getId();
+            $ErreurVerification = false;
 
-            $dataPost = [
-                "text" => $text,
-                "creationDate" => $dateRecente->format("Y-m-d H:i:s"),
-                "post_id" => $idPost, 
-                "ID_user" => $idUser
-            ];
-            
-            //CREER FONCTION add dans $PostManager
-            $PostManager =  $PostManager->add($dataPost);
+            $topic = $topicManager->headerTopic($idTopic);
+
+             if(!$topic) {
+                $this->redirectTo("security", "index");
+            }
+
+            if(empty($text)) {
+                $ErreurVerification = true;
+            }
+
+            if(!$ErreurVerification) {
+                $dataPost = [
+                    "text" => $text,
+                    "creationDate" => $dateRecente->format("Y-m-d H:i:s"),
+                   /* "ID_post" => $idPost, */ 
+                    "topic_ID" => $idTopic, 
+                    "user_ID" => $idUser 
+                ];
+
+                //CREER FONCTION add dans $PostManager
+               // $postManager->add($dataPost);
+
+                $postId = $postManager->add($dataPost);
+            }
 
 
-
-
-
-
-
-/* CREER AffichePost*/
-            $this->redirectTo("post", "AffichePost", $idTopic);
+            // Exemple de redirection vers la vue correcte
+            $this->redirectTo("forum", "AffichePost", $postId);
 
             return [
 			    "view" => VIEW_DIR."topic/addTopicForm.php",
@@ -74,10 +115,8 @@ public function addPost() {
 			    "meta" => "Création d'un post",
 			    "meta_description" => "Ajout d'un post" 
 ];
+
         }
-
-
-
 
 
 //AJOUT TOPIC DEPUIS FORM
@@ -103,6 +142,27 @@ public function addPostForm() {
         "meta" => "Création du post"
     ];
 }
+
+
+
+
+//SUPP POST
+ public function suppressionPost($idMessage) {
+            $messageManager = new MessageManager;
+            $message = $messageManager->findOneById($idMessage);
+
+            // Si user et pas Auteur du Post ni Admin allors il se fait redirigé
+            if(!Session::isAuthorOrAdmin($message->getUser()->getId())) {
+                $this->redirectTo("home", "index");
+            }
+
+            $this->existInDatabase($idMessage, $messageManager);
+
+            $messageManager->delete($idMessage);
+
+            $this->redirectTo("home", "index");
+        }
+    }
 
 
 }

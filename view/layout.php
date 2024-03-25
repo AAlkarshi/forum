@@ -16,14 +16,16 @@
                 <!-- c'est ici que les messages (erreur ou succès) s'affichent-->
                 <h3 class="message" style="color: red"><?= App\Session::getFlash("error") ?></h3>
                 <h3 class="message" style="color: green"><?= App\Session::getFlash("success") ?></h3>
+                
+
                 <header>
                     <nav>
                         <div id="nav-left">
-                            <a href="/">Accueil</a>
+                            <a href="index.php">Accueil</a>
                             <?php
                             if(App\Session::isAdmin()){
                                 ?>
-                                <a href="index.php?ctrl=home&action=users">Voir la liste des gens</a>
+                                <a href="index.php?ctrl=home&action=users">Voir la liste des Utilisateurs</a>
 
                                 <!-- AJOUT -->
                                 <a href="index.php?ctrl=forum&action=listTopics">la liste des Topics</a>
@@ -31,6 +33,8 @@
 
                             <?php } ?>
                         </div>
+
+
                         <div id="nav-right">
                         <?php
                             // si l'utilisateur est connecté 
@@ -52,6 +56,15 @@
                     </nav>
                 </header>
                 
+
+
+
+
+
+
+
+
+
                 <main id="forum">
                     <?= $page ?>
                 </main>

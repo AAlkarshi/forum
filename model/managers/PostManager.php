@@ -3,6 +3,7 @@ namespace Model\Managers;
 
 use App\Manager;
 use App\DAO;
+use Model\Managers\PostManager;
 
 class PostManager extends Manager{
 
@@ -30,10 +31,12 @@ class PostManager extends Manager{
     }
 
 
+
 //Ajout des donnée d'un formulaire dans la BDD
-    public function add($data) {
-        $sql = "INSERT INTO post (text, creationDate, topic_ID, user_ID)
-        VALUES ( :text, :creationDate, :topic_ID, :user_ID)";
+    public function addPost($data) {
+        $sql = "INSERT INTO post (`text`, creationDate, topic_ID, user_ID)
+        VALUES (:text, :creationDate, :topic_ID, :user_ID)";
+
 
         return DAO::insert($sql, [
             'text' => $data['text'],
@@ -42,6 +45,31 @@ class PostManager extends Manager{
             'user_ID' => $data['user_ID']
         ]);
     }
+
+
+
+
+
+// Retourne tout les messages d'un topic spécifique
+ public function ReponsePost($id) {
+         $sql = "SELECT * FROM post
+                INNER JOIN topic ON post.topic_ID = topic.id_topic
+                WHERE topic.id_topic = :id
+                AND NOT topic.creationDate = post.creationDate
+                ORDER BY post.creationDate";
+
+            return $this->getMultipleResults(
+                DAO::select($sql, ["id" => $id]), 
+                $this->className
+            );
+        }
+
+
+// Suppreesion de tt les msg d'un topic
+ public function deleteMessagesPost($idTopic) {
+            $sql ="DELETE FROM post WHERE topic_id = :id ";
+            return DAO::delete($sql, ['id' => $idTopic]); 
+        }
 
 
 

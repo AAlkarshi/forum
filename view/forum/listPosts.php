@@ -9,7 +9,7 @@ foreach ($posts as $post) {
     
     $user = $post->getUser();
 
-   /* if (is_object($user)) { */
+   
 
     echo "Créer par : ";
   		echo '<a href="index.php?ctrl=user&action=detailProfilUtilisateur&id='.$user->getId().'">';
@@ -24,7 +24,7 @@ foreach ($posts as $post) {
         
         . '</a> ';
     
-//var_dump($post);
+
 
 
     // Affiche un lien vers les posts du topic et la date de création

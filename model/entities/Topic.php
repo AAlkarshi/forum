@@ -12,6 +12,18 @@ final class Topic extends Entity{
     private $creationDate;
     private $verrouillage;
 
+//ATTRIBUT SUPPPLEMENTAIRE
+
+    //NBX de Topic
+    private $nbxTopic;
+
+    // ID du MSG de l'auteur lors de la création du topic
+    private $idMessagesAuteur;
+
+    //MSG de l'auteur lors de la créationdu post
+    private $messageAuteur;
+
+
     public function __construct($data){         
         $this->hydrate($data);        
     }
@@ -74,35 +86,100 @@ public function setCategory($category){
 }
 
 
-//CREATIONDATE 
-     public function getcreationDate(){
-        return $this->creationDate;
-    }
 
-    /**
-     * Set the value of CREATIONDATE
+
+
+//CREATIONDATE 
+public function getcreationDate(){
+    return $this->creationDate;
+}
+
+ /**
+     * Set the value of id
      * @return  self
      */ 
-    public function setcreationDate($creationDate){
-        $this->creationDate = $creationDate;
-        return $this;
-    }
+public function setcreationDate($creationDate){
+    $this->creationDate = $creationDate;
+    return $this;
+}
+
+
 
 
 //VERROUILLAGE get
-     public function getVerrouillage(){
-        return $this->verrouillage;
-    }
+public function getVerrouillage(){
+    return $this->verrouillage;
+}
 
-    /**
-     * Set the value of VERROUILLAGE
-     *
+
+ /**
+     * Set the value of id
+     * @return  self
+ */     
+public function setVerrouillage($verrouillage){
+    $this->verrouillage = $verrouillage;
+    return $this;
+}
+
+
+
+
+//NBXTOPIC
+
+//GET  nbxTopic
+public function getnbxTopic() {
+    return $this->nbxTopic;
+}
+
+
+ /**
+     * Set the value of id
      * @return  self
      */ 
-    public function setVerrouillage($verrouillage){
-        $this->verrouillage = $verrouillage;
+public function setnbxTopic($nbxTopic){
+    $this->nbxTopic = $nbxTopic;
         return $this;
-    }
+}
+
+
+
+
+//IDMESSAGESAUTEUR
+public function getidMessagesAuteur(){
+    return $this->idMessagesAuteur;
+}
+
+
+ /**
+     * Set the value of id
+     * @return  self
+     */ 
+ public function setidMessagesAuteur($idMessagesAuteur){
+    $this->idMessagesAuteur = $idMessagesAuteur;
+    return $this;
+}
+
+
+
+
+//MESSAGEAUTEUR
+ public function getmessageAuteur(){
+    return $this->messageAuteur;
+}
+
+
+ /**
+     * Set the value of id
+     * @return  self
+     */ 
+public function setmessageAuteur($messageAuthor){
+    $this->messageAuteur = $messageAuteur;
+    return $this;
+}
+
+
+
+
 
 
     public function __toString(){

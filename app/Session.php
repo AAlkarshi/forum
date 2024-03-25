@@ -44,4 +44,23 @@ class Session{
         }
         return false;
     }
+
+
+
+
+//Vérifie su USER est ADMIN ou AUTEUR 
+    public static function isAuthorOrAdmin($idAuthor) {
+            if(self::getUser() && self::isAdmin()) {
+                return true;
+
+            } else if(self::getUser()->getId() == $idAuthor) {
+                return true;
+
+            } else {
+                return false;
+
+            }
+
+}
+
 }

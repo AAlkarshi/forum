@@ -27,5 +27,25 @@ class CategoryManager extends Manager{
             $this->className
         );
     }
+
+
+
+//Renvoi les 5 categories vec le + de TOPICS
+     public function categoryPopulaire() {
+        $sql = "SELECT category.ID_Category, category.nameCategory, 
+            COUNT(topic.id_topic) AS nbxtopics 
+            FROM category 
+            INNER JOIN topic ON category.ID_Category = topic.category_id
+            GROUP BY category.ID_Category 
+            ORDER BY nbxtopics DESC 
+            LIMIT 5
+            ";
+
+            return $this->getMultipleResults(
+                DAO::select($sql), 
+                $this->className
+            );
+        }
+
     
 }

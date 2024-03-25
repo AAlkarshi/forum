@@ -14,6 +14,27 @@ use App\Session;
         Créer un Topic
     </a> 
 
+     <a href="index.php?ctrl=user&action=profile">
+        Mon Profil
+    </a>
+
+
+    <a href="index.php?ctrl=topic&action=updateTopicForm">
+       Modification du Topic
+    </a>
+
+
+    <a href="index.php?ctrl=post&action=updatePost">
+       Modification du Post
+    </a>
+
+      <a href="index.php?ctrl=forum&action=AffichePost">
+       Affichages des posts
+    </a>
+
+
+
+
 <?php } ?>
 
 
